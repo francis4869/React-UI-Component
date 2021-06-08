@@ -244,3 +244,26 @@ const Test = () => {
 };
 
 export default Test;
+
+  
+  
+  const onChange = (e) => {
+    const {
+      target: { value: currentValue }
+    } = e;
+    var charlimit = 20; // char limit per line
+
+    var lines = currentValue.split("\n");
+    // if (lines.length > 2) return;
+    for (var i = 0; i < lines.length; i++) {
+      if (lines[i].length <= charlimit) continue;
+      var j = 0;
+      let space = charlimit;
+      while (j++ <= charlimit) {
+        if (lines[i].charAt(j) === " ") space = j;
+      }
+      lines[i + 1] = lines[i].substring(space + 1) + (lines[i + 1] || "");
+      lines[i] = lines[i].substring(0, space);
+    }
+    setValue(lines.slice(0, 10).join("\n"));
+  };
